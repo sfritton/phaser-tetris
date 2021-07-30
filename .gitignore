@@ -11,6 +11,8 @@ node_modules/
 
 # Dist
 dist/
+!dist/assets/
+!dist/index.html
 
 # Build
 /npm-debug.log
