@@ -10,7 +10,7 @@ Thumbs.db
 node_modules/
 
 # Dist
-dist/
+dist/*
 !dist/assets/
 !dist/index.html
 
