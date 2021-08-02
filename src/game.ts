@@ -1,5 +1,5 @@
 import 'phaser';
-
+import { Tetromino } from './Tetromino';
 
 const BLOCK_SIZE = 24;
 class Demo extends Phaser.Scene {
@@ -8,12 +8,12 @@ class Demo extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('block_red', 'assets/block_red.svg')
+    this.load.image('block_red', 'assets/block_red.svg');
   }
 
   create() {
-    this.add.image(5 * BLOCK_SIZE, 10 * BLOCK_SIZE, 'block_red')
-
+    const tBlock = new Tetromino(this);
+    this.time.addEvent({ delay: 500, loop: true, callback: () => tBlock.move() });
   }
 }
 
