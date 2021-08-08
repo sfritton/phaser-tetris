@@ -1,5 +1,5 @@
 {
-  "name": "phaser3-typescript-project-template",
+  "name": "phaser-tetris",
   "version": "0.1.0",
   "description": "A tetris clone forked from https://github.com/photonstorm/phaser3-typescript-project-template.",
   "main": "src/game.ts",
@@ -14,8 +14,9 @@
   },
   "author": "Sam Fritton",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^2.3.4",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
@@ -23,12 +24,9 @@
     "eslint-config-prettier": "^8.3.0",
     "phaser": "^3.50.0",
     "prettier": "2.3.2",
-    "rollup": "^2.35.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup": "^2.56.1",
     "rollup-plugin-serve": "^1.1.0",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-typescript2": "^0.30.0",
     "typescript": "^4.1.3"
   }
 }
