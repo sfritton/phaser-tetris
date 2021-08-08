@@ -9,6 +9,7 @@ export class Grid {
   grid: Cell[][];
   scene: Scene;
   gameObject!: GameObjects.Group;
+  startNewBlock: () => void;
 
   constructor(scene: Scene) {
     this.scene = scene;
@@ -21,6 +22,10 @@ export class Grid {
 
   init(): void {
     this.gameObject = this.scene.add.group();
+  }
+
+  setStartNewBlock(callback: () => void): void {
+    this.startNewBlock = callback;
   }
 
   /** Add a new active block at the specified location */
@@ -74,7 +79,8 @@ export class Grid {
         this.grid[r][c].status = 'filled';
       });
 
-      // TODO: start a new tetromino
+      // Start a new block
+      this.startNewBlock();
 
       return;
     }

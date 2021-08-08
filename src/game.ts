@@ -1,11 +1,14 @@
 import 'phaser';
 import { Grid, BLOCK_SIZE } from './Grid';
+import { TetrominoFactory } from './TetrominoFactory';
 class Demo extends Phaser.Scene {
   grid: Grid;
+  tetrominoFactory: TetrominoFactory;
 
   constructor() {
     super('demo');
     this.grid = new Grid(this);
+    this.tetrominoFactory = new TetrominoFactory(this.grid);
   }
 
   preload() {
@@ -20,11 +23,7 @@ class Demo extends Phaser.Scene {
 
   create() {
     this.grid.init();
-    this.grid.addBlock(0, 5, 'red');
-    this.grid.addBlock(0, 4, 'red');
-    this.grid.addBlock(0, 6, 'red');
-    this.grid.addBlock(1, 5, 'red');
-    this.grid.addFilledBlock(10, 4, 'cyan');
+    this.tetrominoFactory.startBlock();
     this.grid.render();
     this.time.addEvent({
       delay: 500,
