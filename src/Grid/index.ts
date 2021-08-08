@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 import { Cell, BlockColor } from './types';
 
 export const BLOCK_SIZE = 24;
@@ -8,6 +8,7 @@ export class Grid {
   columns = 10;
   grid: Cell[][];
   scene: Scene;
+  gameObject!: GameObjects.Group;
 
   constructor(scene: Scene) {
     this.scene = scene;
@@ -18,17 +19,31 @@ export class Grid {
     );
   }
 
+  init(): void {
+    this.gameObject = this.scene.add.group();
+  }
+
   /** Add a new active block at the specified location */
   addBlock(row: number, column: number, color: BlockColor): void {
     this.grid[row][column] = { status: 'active', color };
   }
 
+  addFilledBlock(row: number, column: number, color: BlockColor): void {
+    this.grid[row][column] = { status: 'filled', color };
+  }
+
   render(): void {
+    // Clear the previous frame
+    this.gameObject.clear(true, true);
+
+    // Draw the new frame
     this.grid.forEach((row, r) =>
       row.forEach((cell, c) => {
         if (cell.status === 'empty') return;
 
-        this.scene.add.image(c * BLOCK_SIZE, r * BLOCK_SIZE, `block_${cell.color}`).setOrigin(0, 0);
+        this.gameObject
+          .create(c * BLOCK_SIZE, r * BLOCK_SIZE, `block_${cell.color}`)
+          .setOrigin(0, 0);
       }),
     );
   }
@@ -64,9 +79,13 @@ export class Grid {
       return;
     }
 
-    activeCoordinates.forEach(({ r, c }) => {
-      this.grid[r + 1][c] = { ...this.grid[r][c] };
-      this.grid[r][c] = { status: 'empty' };
-    });
+    // Store the blocks' data
+    const tempCells = activeCoordinates.map(({ r, c }) => ({ ...this.grid[r][c] }));
+
+    // Clear the old cells
+    activeCoordinates.forEach(({ r, c }) => (this.grid[r][c] = { status: 'empty' }));
+
+    // Place the new blocks
+    activeCoordinates.forEach(({ r, c }, index) => (this.grid[r + 1][c] = tempCells[index]));
   }
 }

@@ -19,10 +19,12 @@ class Demo extends Phaser.Scene {
   }
 
   create() {
+    this.grid.init();
     this.grid.addBlock(0, 5, 'red');
     this.grid.addBlock(0, 4, 'red');
     this.grid.addBlock(0, 6, 'red');
     this.grid.addBlock(1, 5, 'red');
+    this.grid.addFilledBlock(10, 4, 'cyan');
     this.grid.render();
     this.time.addEvent({
       delay: 500,
